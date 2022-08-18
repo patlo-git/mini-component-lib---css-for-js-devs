@@ -43,16 +43,14 @@ const ProgressBarBase = styled.progress`
 
   &::-webkit-progress-bar {
     padding: 4px;
-    background-color: #eee;
+    background-color: ${COLORS.transparentGray15};
     border-radius: 4px; 
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+    box-shadow: inset 0px 2px 4px ${COLORS.transparentGray35};
   }
  
   &::-webkit-progress-value {
     background-color: ${COLORS.primary};
     border-radius: 4px 0px 0px 4px; 
-
-    background-size: 35px 20px, 100% 100%, 100% 100%;
   }
 `;
 
