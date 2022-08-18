@@ -8,17 +8,19 @@ import VisuallyHidden from '../VisuallyHidden';
 // taken from our button component
 const SIZES = {
   small: {
-    "--height": "8px",
-    "--borderRadius": 2 + "px",
+    "--height": 8 + "px",
+    "--borderRadius": "4px 0 0 4px",
+    "--padding": 0,
   },
   medium: {
-    "--height": "12px",
-    "--borderRadius": 4 + "px",
+    "--height": 12 + "px",
+    "--borderRadius": "4px 0 0 4px",
+    "padding": 0,
   },
   large: {
-    "--height": "24px",
-    "--borderRadius": 4 + "px",
-    "--padding": "16px 16px",
+    "--height": 24 + "px",
+    "--borderRadius": "4px 0 0 4px",
+    "--padding": 4 + "px",
   }
 }
 
@@ -33,11 +35,10 @@ const ProgressBar = ({ value, size }) => {
   }
 
   return (
-  <Component max="100" value={value}></Component>
+  <Component max="100" style={styles} value={value} size={size}></Component>
   )
 };
 
-// TODO: make three different sizes
 const ProgressBarBase = styled.progress`
   -webkit-appearance: none;
   appearance: none;
@@ -45,18 +46,20 @@ const ProgressBarBase = styled.progress`
   height: var(--height);
 
   &::-webkit-progress-bar {
-    padding: 4px;
+    padding: var(--padding);
     background-color: ${COLORS.transparentGray15};
+    // how to apply an outer progress bar border-radius of 8px only when the bar is Large style?
     border-radius: 4px; 
     box-shadow: inset 0px 2px 4px ${COLORS.transparentGray35};
   }
  
   &::-webkit-progress-value {
     background-color: ${COLORS.primary};
-    border-radius: 4px 0px 0px 4px; 
+    border-radius: var(--borderRadius); 
   }
 `;
 
+// only applies when value is > 99
 const RoundedProgress = styled(ProgressBarBase)`
   ::-webkit-progress-value {    
     border-radius: 4px; 
