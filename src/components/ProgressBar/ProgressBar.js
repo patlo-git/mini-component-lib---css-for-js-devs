@@ -6,21 +6,24 @@ import { COLORS } from '../../constants';
 import VisuallyHidden from '../VisuallyHidden';
 
 // taken from our button component
-// const SIZES = {
-//   small: {
-//     "--borderRadius": 2 + "px",
-//   },
-//   medium: {
-//     "--borderRadius": 4 + "px",
-//   },
-//   large: {
-//     "--borderRadius": 4 + "px",
-//     "--padding": "16px 16px",
-//   }
-// }
+const SIZES = {
+  small: {
+    "--height": "8px",
+    "--borderRadius": 2 + "px",
+  },
+  medium: {
+    "--height": "12px",
+    "--borderRadius": 4 + "px",
+  },
+  large: {
+    "--height": "24px",
+    "--borderRadius": 4 + "px",
+    "--padding": "16px 16px",
+  }
+}
 
 const ProgressBar = ({ value, size }) => {
-  // const styles = SIZES[size];
+  const styles = SIZES[size];
 
   let Component;
   if (value > 99) {
@@ -39,7 +42,7 @@ const ProgressBarBase = styled.progress`
   -webkit-appearance: none;
   appearance: none;
   width: 370px;
-  height: 24px;
+  height: var(--height);
 
   &::-webkit-progress-bar {
     padding: 4px;
