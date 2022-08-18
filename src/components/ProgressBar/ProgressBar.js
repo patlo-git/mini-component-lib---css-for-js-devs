@@ -5,15 +5,37 @@ import styled from 'styled-components';
 import { COLORS } from '../../constants';
 import VisuallyHidden from '../VisuallyHidden';
 
+// taken from our button component
+// const SIZES = {
+//   small: {
+//     "--borderRadius": 2 + "px",
+//   },
+//   medium: {
+//     "--borderRadius": 4 + "px",
+//   },
+//   large: {
+//     "--borderRadius": 4 + "px",
+//     "--padding": "16px 16px",
+//   }
+// }
+
 const ProgressBar = ({ value, size }) => {
-  const styles = SIZES[size];
+  // const styles = SIZES[size];
+
+  let Component;
+  if (value > 99) {
+    Component = RoundedProgress;
+  } else {
+    Component = ProgressBarBase;
+  }
 
   return (
-  <ProgressStyling max="100" value={value}></ProgressStyling>
+  <Component max="100" value={value}></Component>
   )
 };
 
-const ProgressStyling = styled.progress`
+// TODO: make three different sizes
+const ProgressBarBase = styled.progress`
   -webkit-appearance: none;
   appearance: none;
   width: 370px;
@@ -22,14 +44,21 @@ const ProgressStyling = styled.progress`
   &::-webkit-progress-bar {
     padding: 4px;
     background-color: #eee;
-    border-radius: 4px;
+    border-radius: 4px; 
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
   }
  
   &::-webkit-progress-value {
     background-color: ${COLORS.primary};
-    border-radius: 4px; 
+    border-radius: 4px 0px 0px 4px; 
+
     background-size: 35px 20px, 100% 100%, 100% 100%;
+  }
+`;
+
+const RoundedProgress = styled(ProgressBarBase)`
+  ::-webkit-progress-value {    
+    border-radius: 4px; 
   }
 `;
 
