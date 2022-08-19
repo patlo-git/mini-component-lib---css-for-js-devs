@@ -9,33 +9,30 @@ import Icon from '../Icon/Icon';
 const Select = ({ label, value, onChange, children }) => {
   const displayedValue = getDisplayedValue(value, children);
 
+  const style={
+    position:'absolute',
+    top:'11px',
+    left:'162px',
+    color: 'hsl(0deg 0% 40%)',
+  }
+
   return (
     <Wrapper>
       <SelectForm value={value} onChange={onChange}>
         {children}
       </SelectForm>
-      <Icon id='chevron-down'></Icon>
+      <Icon style={style} id='chevron-down'></Icon>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
-  // position: relative;
-  
-  // &::after {
-  //   content: "▼";
-  //   font-size: 1rem;
-  //   top: 6px;
-  //   right: 10px;
-  //   position: absolute;
-  // }
+  position: relative;
 `;
 
 const SelectForm = styled.select`
-  // css tricks
   -moz-appearance: none;
   -webkit-appearance: none;
-  // mine
   border: none;
   background-color: ${COLORS.transparentGray15};
   border-radius: 8px;
@@ -46,10 +43,5 @@ const SelectForm = styled.select`
     color: ${COLORS.black};
   }
 `;
-
-
-
-
-// TODO: Style the chevron
 
 export default Select;
