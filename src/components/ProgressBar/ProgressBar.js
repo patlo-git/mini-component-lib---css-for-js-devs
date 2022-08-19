@@ -6,63 +6,77 @@ import { COLORS } from '../../constants';
 import VisuallyHidden from '../VisuallyHidden';
 
 // taken from our button component
-const SIZES = {
+const STYLES = {
   small: {
-    "--height": 8 + "px",
-    "--padding": 0,
-    "--borderRadius": 4 + "px",
+    height: 8,
+    padding: 0,
+    radius: 4,
   },
   medium: {
-    "--height": 12 + "px",
-    "--padding": 0,
-    "--borderRadius": 4 + "px",
+    height: 12,
+    padding: 0,
+    radius: 4,
   },
   large: {
-    "--height": 24 + "px",
-    "--padding": 4 + "px",
-    "--borderRadius": 8 + "px",
+    height: 24,
+    padding: 4,
+    radius: 8,
   }
 }
 
 const ProgressBar = ({ value, size }) => {
-  const styles = SIZES[size];
+  const styles = STYLES[size];
 
-  let Component;
-  if (value > 99) {
-    Component = RoundedProgress;
-  } else {
-    Component = ProgressBarBase;
-  }
+  // if (!styles) {
+  //   throw new Error(`No styles found`);
+  // }
 
   return (
-  <Component max="100" style={styles} value={value} size={size}></Component>
+    <Wrapper
+      id="percent-loaded" 
+      role="progressbar" 
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow={value}
+      size={size}
+      style={{
+        '--radius': styles.radius + 'px',
+        '--padding': styles.padding + 'px',
+      }}
+      >
+      <VisuallyHidden>{value}</VisuallyHidden>
+      <BarWrapper>
+        <ProgressBarValue
+          style={{
+            '--width': value + '%',
+            '--height': styles.height + 'px',
+          }} />
+      </BarWrapper>
+    </Wrapper>
   )
 };
 
-const ProgressBarBase = styled.progress`
-  -webkit-appearance: none;
-  appearance: none;
+const Wrapper = styled.div`
   width: 370px;
   height: var(--height);
-
-  &::-webkit-progress-bar {
-    padding: var(--padding);
-    background-color: ${COLORS.transparentGray15};
-    border-radius: var(--borderRadius); 
-    box-shadow: inset 0px 2px 4px ${COLORS.transparentGray35};
-  }
- 
-  &::-webkit-progress-value {
-    background-color: ${COLORS.primary};
-    border-radius: 4px 0 0 4px; 
+  padding: var(--padding);
+  background-color: ${COLORS.transparentGray15};
+  box-shadow: inset 0px 2px 4px ${COLORS.transparentGray35};
+  border-radius: var(--radius);
+  overflow: hidden;
   }
 `;
 
-// only applies when value is > 99
-const RoundedProgress = styled(ProgressBarBase)`
-  ::-webkit-progress-value {    
-    border-radius: 4px; 
-  }
+const BarWrapper = styled.div`
+  overflow: hidden;
+  border-radius: 4px;
+`;
+
+const ProgressBarValue = styled.div`
+  width: var(--width);
+  height: var(--height);
+  background-color: ${COLORS.primary};
+  border-radius: 4px 0 0 4px;
 `;
 
 export default ProgressBar;
