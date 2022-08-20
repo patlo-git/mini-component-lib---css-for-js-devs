@@ -9,39 +9,63 @@ import Icon from '../Icon/Icon';
 const Select = ({ label, value, onChange, children }) => {
   const displayedValue = getDisplayedValue(value, children);
 
-  const style={
-    position:'absolute',
-    top:'11px',
-    left:'162px',
-    color: 'hsl(0deg 0% 40%)',
-  }
-
   return (
     <Wrapper>
-      <SelectForm value={value} onChange={onChange}>
+      <SelectFormDefault 
+        value={value} 
+        onChange={onChange}
+      >
         {children}
-      </SelectForm>
-      <Icon style={style} id='chevron-down'></Icon>
+      </SelectFormDefault>
+      <OurSelectForm>
+        {displayedValue}
+        <IconWrapper style={{'--size': 24 + 'px'}}>
+          <Icon id='chevron-down' size={24} strokeWidth={1}></Icon>
+        </IconWrapper>
+      </OurSelectForm>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
   position: relative;
+  width: max-content;
 `;
 
-const SelectForm = styled.select`
+const SelectFormDefault = styled.select`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  bottom: 0;
+  opacity: 0%;
   -moz-appearance: none;
   -webkit-appearance: none;
-  border: none;
-  background-color: ${COLORS.transparentGray15};
-  border-radius: 8px;
-  padding: 12px 52px 12px 16px;
-  color: ${COLORS.gray700};
+`;
 
-  &:hover {
-    color: ${COLORS.black};
+const OurSelectForm = styled.div`
+  color: ${COLORS.gray700};
+  background-color: ${COLORS.transparentGray15};
+  font-size: ${16/16}rem;
+  border-radius: 8px;
+  padding: 12px 16px;
+  padding-right: 52px;
+
+  ${SelectFormDefault}::hover + & {
+    color: ${COLORS.primary};
   }
+`;
+
+const IconWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 10px;
+  width: var(--size);
+  height: var(--size);
+  margin: auto;
+  pointer-events: none;
 `;
 
 export default Select;
