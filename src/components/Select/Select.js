@@ -11,18 +11,18 @@ const Select = ({ label, value, onChange, children }) => {
 
   return (
     <Wrapper>
-      <SelectFormDefault 
+      <SelectElDefault 
         value={value} 
         onChange={onChange}
       >
         {children}
-      </SelectFormDefault>
-      <OurSelectForm>
+      </SelectElDefault>
+      <SelectElOverlay>
         {displayedValue}
         <IconWrapper style={{'--size': 24 + 'px'}}>
           <Icon id='chevron-down' size={24} strokeWidth={1}></Icon>
         </IconWrapper>
-      </OurSelectForm>
+      </SelectElOverlay>
     </Wrapper>
   );
 };
@@ -32,19 +32,19 @@ const Wrapper = styled.div`
   width: max-content;
 `;
 
-const SelectFormDefault = styled.select`
+const SelectElDefault = styled.select`
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  bottom: 0;
   opacity: 0%;
   -moz-appearance: none;
+  // Allow the select to span the full height in Safari
   -webkit-appearance: none;
 `;
 
-const OurSelectForm = styled.div`
+const SelectElOverlay = styled.div`
   color: ${COLORS.gray700};
   background-color: ${COLORS.transparentGray15};
   font-size: ${16/16}rem;
@@ -52,8 +52,13 @@ const OurSelectForm = styled.div`
   padding: 12px 16px;
   padding-right: 52px;
 
-  ${SelectFormDefault}::hover + & {
-    color: ${COLORS.primary};
+  ${SelectElDefault}:focus + & {
+    outline: 1px auto ${COLORS.primary};
+    outline: 5px auto -webkit-focus-ring-color;
+  }
+    
+  ${SelectElDefault}:hover + & {
+    color: ${COLORS.black};
   }
 `;
 
