@@ -11,15 +11,15 @@ const STYLES = {
   small: {
     fontSize: 14/16,
     borderBottom: '1px solid black',
-    iconWidth: 16,
-    iconHeight: 16,
+    iconWidth: 16/16,
+    iconHeight: 16/16,
     stroke: 1,
   },
   large: {
     fontSize: 18/16,
     borderBottom: '2px solid black',
-    iconWidth: 18,
-    iconHeight: 18,
+    iconWidth: 24/16,
+    iconHeight: 24/16,
     stroke: 2,
   },
 }
@@ -42,15 +42,17 @@ const IconInput = ({
         size={size}
         placeholder={placeholder}
         style={{
+          '--left': (styles.iconWidth * 1.5) + 'rem',
           '--fontSize': styles.fontSize + 'rem',
           '--borderBottom': styles.borderBottom,
+          '--padding': (styles.iconWidth / 4) + 'rem',
         }}
         ></Input>
       <IconWrapper
         size={size}
         style={{
-          '--width': styles.iconWidth + 'px',
-          '--height': styles.iconHeight + 'px',
+          '--width': styles.iconWidth + 'rem',
+          '--height': styles.iconHeight + 'rem',
           }}>
         <Icon
           id={icon}
@@ -75,10 +77,13 @@ const Input = styled.input`
   color: ${COLORS.gray700};
   font-weight: 700;
   font-size: var(--fontSize);
+  padding: var(--padding);
 
   &::placeholder {
     font-weight: 400;
     color: ${COLORS.gray500};
+    position: absolute;
+    left: var(--left);
   }
   
   &:focus {
