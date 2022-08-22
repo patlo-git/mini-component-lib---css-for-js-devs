@@ -90,7 +90,7 @@ const Input = styled.input`
     outline-offset: 2px;
   }
   
-  &::hover {
+  &:hover {
     color: ${COLORS.black};
   }
 `;
@@ -103,8 +103,12 @@ const IconWrapper = styled.div`
   width: var(--width);
   height: var(--height);
   margin: auto;
-  pointer-events: none;
   color: ${COLORS.gray700};
+  pointer-events: none;
+
+  ${Input}:hover + & {
+    color: ${COLORS.black};
+  }
 `;
 
 export default IconInput;
