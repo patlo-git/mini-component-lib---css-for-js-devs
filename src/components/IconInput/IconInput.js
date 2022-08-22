@@ -9,10 +9,18 @@ import VisuallyHidden from '../VisuallyHidden';
 
 const STYLES = {
   small: {
-    borderBottom: 1, 
+    fontSize: 14/16,
+    borderBottom: '1px solid black',
+    iconWidth: 16,
+    iconHeight: 16,
+    stroke: 1,
   },
   large: {
-    borderBottom: 2,
+    fontSize: 18/16,
+    borderBottom: '2px solid black',
+    iconWidth: 18,
+    iconHeight: 18,
+    stroke: 2,
   },
 }
 
@@ -23,6 +31,7 @@ const IconInput = ({
   size,
   placeholder,
 }) => {
+  
   const styles = STYLES[size];
 
   return (
@@ -33,13 +42,20 @@ const IconInput = ({
         size={size}
         placeholder={placeholder}
         style={{
-          '--borderBottom': styles.borderBottom + 'px',
-        }}></Input>
-      <IconWrapper style={{'--size': 24 + 'px'}}>
+          '--fontSize': styles.fontSize + 'rem',
+          '--borderBottom': styles.borderBottom,
+        }}
+        ></Input>
+      <IconWrapper
+        size={size}
+        style={{
+          '--width': styles.iconWidth + 'px',
+          '--height': styles.iconHeight + 'px',
+          }}>
         <Icon
           id={icon}
-          size={24} 
-          strokeWidth={1}
+          size={size} 
+          strokeWidth={styles.stroke}
           ></Icon>
       </IconWrapper>
     </Wrapper>
@@ -54,9 +70,11 @@ const Wrapper = styled.div`
 const Input = styled.input`
   appearance: none;
   border: none;
-  border-bottom: 1px solid black;
+  border-bottom: var(--borderBottom);
   text-align: right;
-  padding-bottom: 2px;
+  color: ${COLORS.gray700};
+  font-weight: 700;
+  font-size: var(--fontSize);
 
   &::placeholder {
     font-weight: 400;
@@ -66,6 +84,10 @@ const Input = styled.input`
   &:focus {
     outline-offset: 2px;
   }
+  
+  &::hover {
+    color: ${COLORS.black};
+  }
 `;
 
 const IconWrapper = styled.div`
@@ -73,8 +95,8 @@ const IconWrapper = styled.div`
   top: 0;
   left: 0;
   bottom: 0;
-  width: var(--size);
-  height: var(--size);
+  width: var(--width);
+  height: var(--height);
   margin: auto;
   pointer-events: none;
   color: ${COLORS.gray700};
