@@ -10,16 +10,16 @@ import VisuallyHidden from '../VisuallyHidden';
 const STYLES = {
   small: {
     fontSize: 14/16,
-    borderBottom: '1px solid black',
-    iconWidth: 16/16,
-    iconHeight: 16/16,
+    borderBottom: 1,
+    iconSize: 16/16,
+    height: 24/16,
     stroke: 1,
   },
   large: {
     fontSize: 18/16,
-    borderBottom: '2px solid black',
-    iconWidth: 24/16,
-    iconHeight: 24/16,
+    borderBottom: 2,
+    iconSize: 24/16,
+    height: 36/16,
     stroke: 2,
   },
 }
@@ -36,24 +36,24 @@ const IconInput = ({
 
   return (
     <Wrapper>
-      <Input
-        label={label}
-        width={width}
+      <VisuallyHidden>{label}</VisuallyHidden>
+      <TextInput
         size={size}
         placeholder={placeholder}
         aria-label="Search Input Form"
         style={{
-          '--left': (styles.iconWidth * 1.5) + 'rem',
+          '--height': styles.height + 'rem',
+          '--left': styles.height + 'rem',
           '--fontSize': styles.fontSize + 'rem',
-          '--borderBottom': styles.borderBottom,
-          '--padding': (styles.iconWidth / 4) + 'rem',
+          '--borderBottom': styles.borderBottom + 'px',
+          '--padding': (styles.iconSize / 4) + 'rem',
+          '--width': width + 'px',
         }}
-        ></Input>
+        ></TextInput>
       <IconWrapper
         size={size}
         style={{
-          '--width': styles.iconWidth + 'rem',
-          '--height': styles.iconHeight + 'rem',
+          '--iconSize': styles.iconSize + 'rem',
           }}>
         <Icon
           id={icon}
@@ -61,31 +61,29 @@ const IconInput = ({
           strokeWidth={styles.stroke}
           ></Icon>
       </IconWrapper>
-      <VisuallyHidden>{label}</VisuallyHidden>
     </Wrapper>
   );
 };
 
-const Wrapper = styled.div`
+const Wrapper = styled.label`
+  display: block;
   position: relative;
-  width: max-content;
 `;
 
-const Input = styled.input`
+const TextInput = styled.input`
   appearance: none;
   border: none;
-  border-bottom: var(--borderBottom);
-  text-align: right;
+  border-bottom: var(--borderBottom) solid ${COLORS.black};
   color: ${COLORS.gray700};
   font-weight: 700;
   font-size: var(--fontSize);
-  padding: var(--padding);
+  padding: var(--padding) 0;
+  padding-left: var(--left);
+  width: var(--width);
 
   &::placeholder {
     font-weight: 400;
     color: ${COLORS.gray500};
-    position: absolute;
-    left: var(--left);
   }
   
   &:focus {
@@ -102,13 +100,12 @@ const IconWrapper = styled.div`
   top: 0;
   left: 0;
   bottom: 0;
-  width: var(--width);
-  height: var(--height);
-  margin: auto;
+  width: var(--iconSize);
+  height: var(--iconSize);
+  margin: auto 0;
   color: ${COLORS.gray700};
-  pointer-events: none;
 
-  ${Input}:hover + & {
+  ${TextInput}:hover + & {
     color: ${COLORS.black};
   }
 `;
