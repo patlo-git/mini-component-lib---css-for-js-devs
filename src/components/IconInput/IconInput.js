@@ -41,6 +41,7 @@ const IconInput = ({
         width={width}
         size={size}
         placeholder={placeholder}
+        aria-label="Search Input Form"
         style={{
           '--left': (styles.iconWidth * 1.5) + 'rem',
           '--fontSize': styles.fontSize + 'rem',
@@ -60,6 +61,7 @@ const IconInput = ({
           strokeWidth={styles.stroke}
           ></Icon>
       </IconWrapper>
+      <VisuallyHidden>{label}</VisuallyHidden>
     </Wrapper>
   );
 };
