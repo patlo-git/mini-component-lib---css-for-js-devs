@@ -1,5 +1,4 @@
 import React from 'react';
-import { Search } from 'react-feather';
 import styled from 'styled-components';
 
 import { COLORS } from '../../constants';
@@ -50,7 +49,7 @@ const IconInput = ({
         {...delegated}
         style={{
           '--width': width + 'px',
-          '--height': styles.height + 'px',
+          '--height': styles.height / 16 + 'rem',
           '--fontSize': styles.fontSize / 16 + 'rem',
           '--stroke': styles.stroke + 'px',
         }}
